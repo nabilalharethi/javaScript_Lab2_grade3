@@ -64,7 +64,14 @@
                     <label for="message">Message: <span class="required">*</span></label>
                     <textarea id="message" name="message" rows="5" required></textarea>
                     <span class="error-message" id="message-error"></span>
+                    <div class="char-counter" id="char-counter">0/20 characters</div>
                 </div>
+                <div class="form-buttons">
+                    <button type="submit" class="submit-button">Submit</button>
+                    <button type="reset" class="reset-button" id="reset-button">Reset</button>
+                </div>
+                <div id="success-message" class="success-message" style="display: none;">Form submitted successfully! I will get back to you soon.</div>
+                
             </form>
         </section>
     </main>
