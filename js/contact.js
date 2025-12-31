@@ -24,3 +24,56 @@ console.log("All form elements referenced.:", {
     firstName: firstNameInput,
     lastName: lastNameInput,
 });
+
+//function to validate email format
+
+function isValidEmail(email) {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email.trim());
+}
+//test function
+
+console.log("testing validateEmail()");
+console.log(isValidEmail("nabil@example.com")); //true
+console.log(isValidEmail("invalid.email")); //false
+console.log(isValidEmail(" user@domain")); //false
+
+//function that validate a name (first or last)
+
+function isValidName(name) {
+    const nameRegex = /^[a-zA-Z'-]{2,30}$/;
+    return nameRegex.test(name.trim());
+}
+
+//test function
+
+console.log("testing validateName()");
+console.log(isValidName("Nabil")); //true
+console.log(isValidName("A")); //false
+console.log(isValidName("O'Connor")); //true
+console.log(isValidName("Mary-Jane")); //true
+console.log(isValidName("John123")); //false    
+
+//function to validate message length
+
+function isValidMessage(message) {
+    return message.trim().length >= 20;
+}
+
+console.log("testing validateMessage()");
+console.log(isValidMessage("This is a valid message.")); //true
+console.log(isValidMessage("Too short")); //false
+
+
+//function to validate phone number format
+function isValidPhone(phone) {
+    if (phone.trim() === "") return true; //phone is optional
+    const phoneRegex = /^\+?[0-9\s\-()]{7,15}$/;
+    return phoneRegex.test(phone.trim());
+}
+//test function
+console.log("testing validatePhone()");
+console.log(isValidPhone("+1 (555) 123-4567")); //true
+console.log(isValidPhone("555-1234")); //true
+console.log(isValidPhone("invalid-phone")); //false
+console.log(isValidPhone("")); //true (optional field)
