@@ -108,3 +108,35 @@ function clearError(inputElement) {
         inputElement.classList.add("success");
     }
 }
+
+//function to update character count for message textarea
+function updateCharCount() {
+    const currentLength = messgeTextarea.value.length;
+    charCount.textContent = `${currentLength}/20 characters`;
+
+    //change color based on length
+    if (currentLength < 20) {
+        charCount.classList.remove("success-count");
+        charCount.classList.add("error-count");
+    } else {
+        charCount.classList.remove("error-count");
+        charCount.classList.add("success-count");
+    }
+}
+
+//test updateCharCount function
+console.log("testing updateCharCount()");
+messgeTextarea.value = "Hello, this is a test message.";
+updateCharCount();
+messgeTextarea.value = "Short msg";
+updateCharCount();
+
+
+//event listener for message textarea input to update char count
+messgeTextarea.addEventListener("input", updateCharCount);
+//initial char count update
+updateCharCount();
+
+//test clearError function
+console.log("testing clearError()");
+clearError(firstNameInput); //should clear error message and styles

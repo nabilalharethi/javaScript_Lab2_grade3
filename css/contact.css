@@ -159,3 +159,18 @@ textarea.input-success:focus {
     border-color: #28a745;
     box-shadow: 0 0 3px rgba(40, 167, 69, 0.1);
 }
+
+.char-counter {
+    font-size: 0.875rem;
+    margin-top: 0.4rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.char-counter.error-count {
+    color: #dc3545;
+}
+
+.char-counter.success-count {
+    color: #28a745;
+}   
