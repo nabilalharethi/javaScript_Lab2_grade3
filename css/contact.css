@@ -145,3 +145,17 @@ textarea.error:focus {
         transform: translateY(0);  
     }
 }
+
+.input-success,
+select.input-success,
+textarea.input-success {
+    border-color: #28a745;
+    background-color: #f0fff4;
+}
+
+.input-success:focus,
+select.input-success:focus,
+textarea.input-success:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 3px rgba(40, 167, 69, 0.1);
+}

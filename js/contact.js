@@ -77,3 +77,34 @@ console.log(isValidPhone("+1 (555) 123-4567")); //true
 console.log(isValidPhone("555-1234")); //true
 console.log(isValidPhone("invalid-phone")); //false
 console.log(isValidPhone("")); //true (optional field)
+
+//displays error message below a field
+
+function showError(inputElement, message) {
+    const errorElement = document.getElementById('${inputElement.id}-error');
+    errorElement.textContent = message;
+    errorElement.style.display = "block";
+
+    //add eror style to input field
+    inputElement.classList.add("error");
+    inputElement.classList.remove("success");
+}
+
+//test showError function
+console.log("testing showError()");
+showError(firstNameInput, "First name is required.");
+
+//function to clear error message
+function clearError(inputElement) {
+    const errorElement = document.getElementById(`${inputElement.id}-error`);
+    //clear error message
+    errorElement.textContent = "";
+    errorElement.style.display = "none";
+    //remove error style from input field
+    inputElement.classList.remove("error");
+
+    //add success style
+    if (inputElement.value.trim() !== "") {
+        inputElement.classList.add("success");
+    }
+}
