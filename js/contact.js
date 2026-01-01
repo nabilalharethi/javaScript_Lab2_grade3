@@ -2,6 +2,7 @@
 // contact form validation system , this will handle client-side validation for the contact form
 
 
+
 console.log("Contact form validation script loaded.");
 
 
@@ -80,9 +81,9 @@ console.log(isValidPhone("")); //true (optional field)
 
 //displays error message below a field
 
-function showError(inputElement, message) {
+function showError(inputElement, Message) {
     const errorElement = document.getElementById('${inputElement.id}-error');
-    errorElement.textContent = message;
+    errorElement.textContent = Message;
     errorElement.style.display = "block";
 
     //add eror style to input field
@@ -140,3 +141,93 @@ updateCharCount();
 //test clearError function
 console.log("testing clearError()");
 clearError(firstNameInput); //should clear error message and styles
+
+//first name validation on blur
+firstNameInput.addEventListener("blur", () => {
+    if (firstNameInput.value.trim() === "") {
+        if(!isValidName(firstNameInput.value)) {
+            showError(firstNameInput, "First name must be 2-30 alphabetic characters.");
+        }else {
+            clearError(firstNameInput);
+        }
+    
+    }
+});
+
+//test first name blur event
+console.log("testing firstNameInput blur event");
+firstNameInput.value = "A"; //invalid
+firstNameInput.dispatchEvent(new Event("blur")); //should show error
+firstNameInput.value = "Nabil"; //valid
+firstNameInput.dispatchEvent(new Event("blur")); //should clear error
+firstNameInput.value = ""; //empty
+firstNameInput.dispatchEvent(new Event("blur")); //should show required error
+
+//last name validation on blur
+lastNameInput.addEventListener("blur", () => {
+    if (lastNameInput.value.trim() === "") { 
+        if(!isValidName(lastNameInput.value)) {
+            showError(lastNameInput, "Last name must be 2-30 alphabetic characters.");
+        }else {
+            clearError(lastNameInput);
+        }
+    }
+});
+
+//test last name blur event
+console.log("testing lastNameInput blur event");
+lastNameInput.value = "B"; //invalid
+lastNameInput.dispatchEvent(new Event("blur")); //should show error
+lastNameInput.value = "Smith";
+lastNameInput.dispatchEvent(new Event("blur")); //should clear error
+lastNameInput.value = ""; //empty
+lastNameInput.dispatchEvent(new Event("blur")); //should show required error
+
+//email validation on blur
+emailInput.addEventListener("blur", () => {
+    if (emailInput.value.trim() === "") {
+        if(!isValidEmail(emailInput.value)) {
+            showError(emailInput, "Please enter a valid email address.");
+        }else {
+            clearError(emailInput);
+        }  
+    }
+});
+
+//test email blur event
+console.log("testing emailInput blur event");
+emailInput.value = "invalid-email"; //invalid
+emailInput.dispatchEvent(new Event("blur")); //should show error
+
+//message validation on blur
+messgeTextarea.addEventListener("blur", () => {
+    if (messgeTextarea.value.trim() === "") {
+        if(!isValidMessage(messgeTextarea.value)) {
+            showError(messgeTextarea, "Message must be at least 20 characters long.");
+        }else {
+            clearError(messgeTextarea);
+        }
+    }
+});
+
+//test message blur event
+console.log("testing messgeTextarea blur event");
+messgeTextarea.value = "Short msg"; //invalid
+messgeTextarea.dispatchEvent(new Event("blur")); //should show error   
+
+//phone validation on blur
+phoneInput.addEventListener("blur", () => {
+    if (phoneInput.value.trim() !== "") {
+        if(!isValidPhone(phoneInput.value)) { 
+            showError(phoneInput, "Please enter a valid phone number.");
+        }else {
+            clearError(phoneInput);
+        } 
+    }
+});
+
+//test phone blur event
+console.log("testing phoneInput blur event");
+phoneInput.value = "invalid-phone"; //invalid
+phoneInput.dispatchEvent(new Event("blur")); //should show error
+
