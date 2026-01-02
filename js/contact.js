@@ -142,6 +142,7 @@ updateCharCount();
 console.log("testing clearError()");
 clearError(firstNameInput); //should clear error message and styles
 
+
 //first name validation on blur
 firstNameInput.addEventListener("blur", () => {
     if (firstNameInput.value.trim() === "") {
@@ -230,4 +231,62 @@ phoneInput.addEventListener("blur", () => {
 console.log("testing phoneInput blur event");
 phoneInput.value = "invalid-phone"; //invalid
 phoneInput.dispatchEvent(new Event("blur")); //should show error
+
+
+//Vadite all form fields at once, return true if all valid
+function validateForm() {
+    let isFormValid = true;
+
+    //first name validation
+    if (!isValidName(firstNameInput.value)) {
+        showError(firstNameInput, "First name must be 2-30 alphabetic characters.");
+        isFormValid = false;
+    } else {
+        clearError(firstNameInput);
+    }
+    //last name validation
+    if (!isValidName(lastNameInput.value)) {
+        showError(lastNameInput, "Last name must be 2-30 alphabetic characters.");
+        isFormValid = false;
+    } else {
+        clearError(lastNameInput);
+    }
+    //email validation
+    if (!isValidEmail(emailInput.value)) {
+        showError(emailInput, "Please enter a valid email address.");
+        isFormValid = false;
+    } else {
+        clearError(emailInput);
+    }
+    //message validation
+    if (!isValidMessage(messgeTextarea.value)) {
+        showError(messgeTextarea, "Message must be at least 20 characters long.");
+        isFormValid = false;
+    } else {
+        clearError(messgeTextarea);
+    }
+    //phone validation
+    if (!isValidPhone(phoneInput.value)) {
+        showError(phoneInput, "Please enter a valid phone number.");
+        isFormValid = false;
+    }
+    else {
+        clearError(phoneInput);
+    }
+    return isFormValid;
+}  
+
+//test validateForm function
+console.log("testing validateForm()");
+firstNameInput.value = "Nabil";
+lastNameInput.value = "Smith";
+emailInput.value = "nabil.smith@example.com";
+messgeTextarea.value = "Hello, this is a valid message with more than twenty characters.";
+phoneInput.value = "+1 (555) 123-4567";
+console.log("All valid form test:", validateForm()); //should be true
+firstNameInput.value = "A"; //invalid first name
+console.log("Invalid first name test:", validateForm()); //should be false
+firstNameInput.value = "Nabil"; //valid first name
+emailInput.value = "invalid-email"; //invalid email
+console.log("Invalid email test:", validateForm()); //should be false
 
