@@ -198,3 +198,58 @@ textarea.input-success:focus {
         transform: translateY(0);
     }
 }
+
+inut[type="text"],
+input[type="email"],
+input[type="tel"],
+select,
+textarea,
+button {
+    transition: border-color 0.3s ease,
+    color 0.3s ease,
+     box-shadow 0.3s ease,
+      background-color 0.3s ease,
+       transform 0.2s ease;
+}
+
+@media (max-width: 768px) {
+
+    #contact {
+        padding: 0 1rem;
+    }
+    .form-group {
+        margin-bottom: 1rem;
+    }
+    .form-buttons {
+        flex-direction: column;
+    }
+    button [type="submit"],
+    .submit-button
+    .clear-button {
+        width: 100%;
+    }
+}
+
+@media(max-width:480px){
+    #contact {
+        padding: 1rem;
+    }
+    .form-group label {
+        font-size: 0.9rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    textarea {
+        padding: 0.65rem;
+        font-size: 0.95rem;
+}
+    button[type="submit"],
+    .submit-button,
+    .clear-button {
+        padding: 0.75rem;
+        font-size: 0.95rem;
+    }
+}

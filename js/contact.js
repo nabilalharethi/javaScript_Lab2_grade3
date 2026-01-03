@@ -340,3 +340,9 @@ function clearForm() {
     //reset char count
     updateCharCount();
 }   
+
+//clear button event listener
+clearButton.addEventListener("click", () => {
+    clearForm();
+    
+});
