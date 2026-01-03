@@ -174,9 +174,8 @@ messgeTextarea.addEventListener("blur", () => {
 
 //phone validation on blur
 phoneInput.addEventListener("blur", () => {
-    if (phoneInput.value.trim() !== "") {
-        clearError(phoneInput);
-    } else if(!isValidPhone(phoneInput.value)) { 
+    
+    if(!isValidPhone(phoneInput.value)) { 
         showError(phoneInput, "Please enter a valid phone number.");
     } else {
         clearError(phoneInput);
