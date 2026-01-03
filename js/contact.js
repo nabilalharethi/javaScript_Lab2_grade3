@@ -8,17 +8,17 @@ console.log("Contact form validation script loaded.");
 
 //store refrence to all form elements
 
-const contactForm = document.getElementById("contactForm");
-const firstNameInput = document.getElementById("firstName");
-const lastNameInput = document.getElementById("lastName");
+const contactForm = document.getElementById("contact-form");
+const firstNameInput = document.getElementById("first-name");
+const lastNameInput = document.getElementById("last-name");
 const emailInput = document.getElementById("email");
 const phoneInput = document.getElementById("phone");
 const subjectInput = document.getElementById("subject");
 const messgeTextarea = document.getElementById("message");
-const clearButton = document.getElementById("clearButton");
-const successMessage = document.getElementById("successMessage");
+const clearButton = document.getElementById("reset-button");
+const successMessage = document.getElementById("success-message");
 const successNameSpan = document.getElementById("successName");
-const charCount = document.getElementById("charCount");
+const charCount = document.getElementById("char-counter");
 
 console.log("All form elements referenced.:", {
     form: contactForm,
@@ -32,12 +32,7 @@ function isValidEmail(email) {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email.trim());
 }
-//test function
 
-console.log("testing validateEmail()");
-console.log(isValidEmail("nabil@example.com")); //true
-console.log(isValidEmail("invalid.email")); //false
-console.log(isValidEmail(" user@domain")); //false
 
 //function that validate a name (first or last)
 
@@ -45,15 +40,6 @@ function isValidName(name) {
     const nameRegex = /^[a-zA-Z'-]{2,30}$/;
     return nameRegex.test(name.trim());
 }
-
-//test function
-
-console.log("testing validateName()");
-console.log(isValidName("Nabil")); //true
-console.log(isValidName("A")); //false
-console.log(isValidName("O'Connor")); //true
-console.log(isValidName("Mary-Jane")); //true
-console.log(isValidName("John123")); //false    
 
 //function to validate message length
 
@@ -72,17 +58,12 @@ function isValidPhone(phone) {
     const phoneRegex = /^\+?[0-9\s\-()]{7,15}$/;
     return phoneRegex.test(phone.trim());
 }
-//test function
-console.log("testing validatePhone()");
-console.log(isValidPhone("+1 (555) 123-4567")); //true
-console.log(isValidPhone("555-1234")); //true
-console.log(isValidPhone("invalid-phone")); //false
-console.log(isValidPhone("")); //true (optional field)
+
 
 //displays error message below a field
 
 function showError(inputElement, Message) {
-    const errorElement = document.getElementById('${inputElement.id}-error');
+    const errorElement = document.getElementById(`${inputElement.id}-error`);
     errorElement.textContent = Message;
     errorElement.style.display = "block";
 
@@ -91,9 +72,7 @@ function showError(inputElement, Message) {
     inputElement.classList.remove("success");
 }
 
-//test showError function
-console.log("testing showError()");
-showError(firstNameInput, "First name is required.");
+
 
 //function to clear error message
 function clearError(inputElement) {
@@ -125,12 +104,6 @@ function updateCharCount() {
     }
 }
 
-//test updateCharCount function
-console.log("testing updateCharCount()");
-messgeTextarea.value = "Hello, this is a test message.";
-updateCharCount();
-messgeTextarea.value = "Short msg";
-updateCharCount();
 
 
 //event listener for message textarea input to update char count
@@ -138,99 +111,78 @@ messgeTextarea.addEventListener("input", updateCharCount);
 //initial char count update
 updateCharCount();
 
-//test clearError function
-console.log("testing clearError()");
-clearError(firstNameInput); //should clear error message and styles
-
 
 //first name validation on blur
 firstNameInput.addEventListener("blur", () => {
     if (firstNameInput.value.trim() === "") {
-        if(!isValidName(firstNameInput.value)) {
-            showError(firstNameInput, "First name must be 2-30 alphabetic characters.");
-        }else {
-            clearError(firstNameInput);
-        }
-    
+        showError(firstNameInput, "First name is required.");
+        isFormValid = false;
+    } else if(!isValidName(firstNameInput.value)) {
+        showError(firstNameInput, "First name must be 2-30 alphabetic characters.");
+        isFormValid = false;
+    } else {
+        clearError(firstNameInput);
     }
 });
 
-//test first name blur event
-console.log("testing firstNameInput blur event");
-firstNameInput.value = "A"; //invalid
-firstNameInput.dispatchEvent(new Event("blur")); //should show error
-firstNameInput.value = "Nabil"; //valid
-firstNameInput.dispatchEvent(new Event("blur")); //should clear error
-firstNameInput.value = ""; //empty
-firstNameInput.dispatchEvent(new Event("blur")); //should show required error
+
 
 //last name validation on blur
 lastNameInput.addEventListener("blur", () => {
     if (lastNameInput.value.trim() === "") { 
-        if(!isValidName(lastNameInput.value)) {
-            showError(lastNameInput, "Last name must be 2-30 alphabetic characters.");
-        }else {
-            clearError(lastNameInput);
-        }
+        showError(lastNameInput, "Last name is required.");
+        isFormValid = false;
+    } else if(!isValidName(lastNameInput.value)) {
+        showError(lastNameInput, "Last name must be 2-30 alphabetic characters.");
+        isFormValid = false;
+    } else {
+        clearError(lastNameInput);
     }
 });
 
-//test last name blur event
-console.log("testing lastNameInput blur event");
-lastNameInput.value = "B"; //invalid
-lastNameInput.dispatchEvent(new Event("blur")); //should show error
-lastNameInput.value = "Smith";
-lastNameInput.dispatchEvent(new Event("blur")); //should clear error
-lastNameInput.value = ""; //empty
-lastNameInput.dispatchEvent(new Event("blur")); //should show required error
+
 
 //email validation on blur
 emailInput.addEventListener("blur", () => {
     if (emailInput.value.trim() === "") {
-        if(!isValidEmail(emailInput.value)) {
-            showError(emailInput, "Please enter a valid email address.");
-        }else {
-            clearError(emailInput);
-        }  
+        showError(emailInput, "Email is required.");
+        isFormValid = false;
+    } else if(!isValidEmail(emailInput.value)) {
+        showError(emailInput, "Please enter a valid email address.");
+        isFormValid = false;
+    } else {
+        clearError(emailInput);
     }
 });
 
-//test email blur event
-console.log("testing emailInput blur event");
-emailInput.value = "invalid-email"; //invalid
-emailInput.dispatchEvent(new Event("blur")); //should show error
+
 
 //message validation on blur
 messgeTextarea.addEventListener("blur", () => {
     if (messgeTextarea.value.trim() === "") {
-        if(!isValidMessage(messgeTextarea.value)) {
-            showError(messgeTextarea, "Message must be at least 20 characters long.");
-        }else {
-            clearError(messgeTextarea);
-        }
+        showError(messgeTextarea, "Message is required.");
+        isFormValid = false;
+    } else if(!isValidMessage(messgeTextarea.value)) {
+        showError(messgeTextarea, "Message must be at least 20 characters long.");
+        isFormValid = false;
+    } else {
+        clearError(messgeTextarea);
     }
 });
 
-//test message blur event
-console.log("testing messgeTextarea blur event");
-messgeTextarea.value = "Short msg"; //invalid
-messgeTextarea.dispatchEvent(new Event("blur")); //should show error   
+
 
 //phone validation on blur
 phoneInput.addEventListener("blur", () => {
     if (phoneInput.value.trim() !== "") {
-        if(!isValidPhone(phoneInput.value)) { 
-            showError(phoneInput, "Please enter a valid phone number.");
-        }else {
-            clearError(phoneInput);
-        } 
+        clearError(phoneInput);
+    } else if(!isValidPhone(phoneInput.value)) { 
+        showError(phoneInput, "Please enter a valid phone number.");
+    } else {
+        clearError(phoneInput);
     }
 });
 
-//test phone blur event
-console.log("testing phoneInput blur event");
-phoneInput.value = "invalid-phone"; //invalid
-phoneInput.dispatchEvent(new Event("blur")); //should show error
 
 
 //Vadite all form fields at once, return true if all valid
@@ -276,19 +228,7 @@ function validateForm() {
     return isFormValid;
 }  
 
-//test validateForm function
-console.log("testing validateForm()");
-firstNameInput.value = "Nabil";
-lastNameInput.value = "Smith";
-emailInput.value = "nabil.smith@example.com";
-messgeTextarea.value = "Hello, this is a valid message with more than twenty characters.";
-phoneInput.value = "+1 (555) 123-4567";
-console.log("All valid form test:", validateForm()); //should be true
-firstNameInput.value = "A"; //invalid first name
-console.log("Invalid first name test:", validateForm()); //should be false
-firstNameInput.value = "Nabil"; //valid first name
-emailInput.value = "invalid-email"; //invalid email
-console.log("Invalid email test:", validateForm()); //should be false
+
 
 //form submit event handler
 contactForm.addEventListener("submit", (e) => {
@@ -344,5 +284,5 @@ function clearForm() {
 //clear button event listener
 clearButton.addEventListener("click", () => {
     clearForm();
-    
+
 });
