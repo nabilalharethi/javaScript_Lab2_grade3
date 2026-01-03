@@ -295,19 +295,10 @@ contactForm.addEventListener("submit", (e) => {
     e.preventDefault(); //prevent default form submission
     if (validateForm()) {
 
-        console.log("Form is valid. Submitting...");
-        //display success message
-        successNameSpan.textContent = firstNameInput.value.trim();
-        successMessage.style.display = "block";
-        //reset form after successful submission
-        contactForm.reset();
-        //reset char count
-        updateCharCount();
-        //clear all success styles
-        const inputElements = contactForm.querySelectorAll("input, textarea");
-        inputElements.forEach((element) => {
-            element.classList.remove("success");
-        });
+        const firstName = firstNameInput.value.trim();
+        showSuccessMessage(firstName);
+        clearForm();
+
     } else {
         console.log("Form is invalid. Please correct the errors and try again.");
         
@@ -334,3 +325,18 @@ function showSuccessMessage(firstName) {
     }, 3000);
 }
 
+
+//clear all form fields aftet successful submission
+
+function clearForm() {
+    contactForm.reset();
+
+    const allInputs = [firstNameInput, lastNameInput, emailInput, phoneInput, subjectInput, messgeTextarea];
+    allInputs.forEach((input) => {
+        input.classList.remove("error", "success");
+        clearError(input);
+    });
+
+    //reset char count
+    updateCharCount();
+}   
