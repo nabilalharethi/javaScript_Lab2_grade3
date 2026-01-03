@@ -318,3 +318,19 @@ contactForm.addEventListener("submit", (e) => {
     }   
 });
 
+//show success message function
+
+function showSuccessMessage(firstName) {
+    successNameSpan.textContent = firstName;
+    successMessage.style.display = "block";
+    
+
+    //scroll to success message
+    successMessage.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    //hide success message after 3 seconds
+    setTimeout(() => {
+        successMessage.style.display = "none";
+    }, 3000);
+}
+
