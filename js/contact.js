@@ -290,3 +290,31 @@ firstNameInput.value = "Nabil"; //valid first name
 emailInput.value = "invalid-email"; //invalid email
 console.log("Invalid email test:", validateForm()); //should be false
 
+//form submit event handler
+contactForm.addEventListener("submit", (e) => {
+    e.preventDefault(); //prevent default form submission
+    if (validateForm()) {
+
+        console.log("Form is valid. Submitting...");
+        //display success message
+        successNameSpan.textContent = firstNameInput.value.trim();
+        successMessage.style.display = "block";
+        //reset form after successful submission
+        contactForm.reset();
+        //reset char count
+        updateCharCount();
+        //clear all success styles
+        const inputElements = contactForm.querySelectorAll("input, textarea");
+        inputElements.forEach((element) => {
+            element.classList.remove("success");
+        });
+    } else {
+        console.log("Form is invalid. Please correct the errors and try again.");
+        
+        const firstError = contactForm.querySelector(".error");
+        if (firstError) {
+            firstError.scrollIntoView({ behavior: "smooth" , block: "center" });
+        }
+    }   
+});
+
