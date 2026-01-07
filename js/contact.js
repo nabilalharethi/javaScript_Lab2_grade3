@@ -44,7 +44,7 @@ function isValidName(name) {
 //function to validate message length
 
 function isValidMessage(message) {
-    return message.trim().length >= 20;
+    return message.trim().length >= 30;
 }
 
 console.log("testing validateMessage()");
@@ -92,10 +92,10 @@ function clearError(inputElement) {
 //function to update character count for message textarea
 function updateCharCount() {
     const currentLength = messgeTextarea.value.length;
-    charCount.textContent = `${currentLength}/20 characters`;
+    charCount.textContent = `${currentLength}/30 characters`;
 
     //change color based on length
-    if (currentLength < 20) {
+    if (currentLength < 30) {
         charCount.classList.remove("success-count");
         charCount.classList.add("error-count");
     } else {
