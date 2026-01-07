@@ -163,7 +163,7 @@ messgeTextarea.addEventListener("blur", () => {
         showError(messgeTextarea, "Message is required.");
         isFormValid = false;
     } else if(!isValidMessage(messgeTextarea.value)) {
-        showError(messgeTextarea, "Message must be at least 20 characters long.");
+        showError(messgeTextarea, "Message must be at least 30 characters long.");
         isFormValid = false;
     } else {
         clearError(messgeTextarea);
